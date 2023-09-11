@@ -24,10 +24,25 @@ public class TeacherMain {
             } else if (command.equals("list")) {
                 System.out.println("===================");
                 for(int i = 0; i < titles.size(); i++){
+                    System.out.printf("번호 : %d\n", i + 1);
                     System.out.printf("제목 : %s\n", titles.get(i));
-                    System.out.printf("내용 : %s\n", contents.get(i));
+                    // System.out.printf("내용 : %s\n", contents.get(i));
                     System.out.println("===================");
                 }
+            } else if (command.equals("update")) {
+                System.out.print("수정할 게시물 번호 : ");
+                int target = sc.nextInt();
+
+                sc.nextLine();
+
+                System.out.print("새로운 제목 : ");
+                String newtitle = sc.nextLine();
+                System.out.print("새로운 내용 : ");
+                String newcontent = sc.nextLine();
+
+                titles.set(target-1, newtitle);
+                contents.set(target-1, newcontent);
+
             } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
