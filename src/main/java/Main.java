@@ -56,6 +56,15 @@ public class Main {
                 } else {
                     System.out.println("없는 게시물 번호입니다.");
                 }
+            } else if (func.equals("delete")) {
+                System.out.print("삭제할 게시물 번호 : ");
+                int postNumber = Integer.parseInt(sc.nextLine()) - 1;
+                if(postNumber >= 0 && postNumber < boards.size()) {
+                    System.out.println((postNumber + 1) + " 번 게시물이 삭제되었습니다.");
+                    boards.remove(postNumber);
+                } else {
+                    System.out.println("없는 게시물 번호입니다.");
+                }
             } else if (func.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
