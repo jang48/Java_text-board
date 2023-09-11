@@ -22,9 +22,9 @@ public class Main {
 
         while (true) {
             System.out.print("명령어 : ");
-            String func = sc.nextLine().trim();
+            String command = sc.nextLine().trim();
 
-            if (func.equals("add")) {
+            if (command.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요 : ");
                 String title = sc.nextLine();
                 System.out.print("게시물 내용을 입력해주세요 : ");
@@ -33,15 +33,15 @@ public class Main {
 
                 boardcnt++;
 
-                String board = "==================\n" + " 번호 : " + boardcnt + "\n"+" 제목: " + title ;
+                String board = "==================\n" + " 번호 : " + boardcnt + "\n"+" 제목: " + title  ;
                 boards.add(boardcnt-1,board);
-            } else if (func.equals("list")) {
+            } else if (command.equals("list")) {
                 int index = 1;
                 for (String board : boards) {
                     index++;
                     System.out.println(board);
                 }
-            } else if (func.equals("update")) {
+            } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호 : ");
                 int postNumber = Integer.parseInt(sc.nextLine()) - 1;
                 if(postNumber >= 0 && postNumber < boards.size()) {
@@ -56,7 +56,7 @@ public class Main {
                 } else {
                     System.out.println("없는 게시물 번호입니다.");
                 }
-            } else if (func.equals("delete")) {
+            } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
                 int postNumber = Integer.parseInt(sc.nextLine()) - 1;
                 if(postNumber >= 0 && postNumber < boards.size()) {
@@ -65,7 +65,7 @@ public class Main {
                 } else {
                     System.out.println("없는 게시물 번호입니다.");
                 }
-            } else if (func.equals("exit")) {
+            } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
             }
