@@ -3,11 +3,13 @@ import java.util.List;
 import java.util.Scanner;
 
 public class TeacherMain {
+
+    static ArrayList<Article> articles = new ArrayList<>();
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
 //        ArrayList<String> titles = new ArrayList<>();
 //        ArrayList<String> contents = new ArrayList<>();
-        ArrayList<Article> articles = new ArrayList<>();
+//        ArrayList<Article> articles = new ArrayList<>();
 
         int lastId = 1;
 
@@ -31,6 +33,7 @@ public class TeacherMain {
 
             } else if (command.equals("list")) {
                 System.out.println("===================");
+
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
 
@@ -86,19 +89,20 @@ public class TeacherMain {
 //                contents.set(target-1, newcontent);
 
             } else if (command.equals("detail")) {
-                System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
-                int target = sc.nextInt();
-                sc.nextLine();
-                if(articles.size() < target-1){
-                    System.out.println("존재하지 않는 게시물 번호입니다.");
-                }
+                 // 중복 -> 2번이상 > 함수를 만들어서 중복을 최소화 하자.
+                System.out.println("상세보기 할 게시물 번호를 입력해주세요.");
+                int targetId = sc.nextInt();
+                Article article = findById(targetId);
 
-                Article article = articles.get(target-1);
-                System.out.println("===================");
-                System.out.printf("번호 : %d\n", target);
-                System.out.printf("제목 : %s\n",article.getTitle());
-                System.out.printf("내용 : %s\n", article.getContent());
-                System.out.println("===================");
+                if(article == null){
+                    System.out.println("존재하지 않는 게시물입니다.");
+                } else {
+                    System.out.println("====================");
+                    System.out.printf("번호 : %d\n", article.getId());
+                    System.out.printf("제목 : %s\n", article.getTitle());
+                    System.out.printf("내용 : %s\n", article.getContent());
+                    System.out.println("====================");
+                }
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
@@ -135,5 +139,20 @@ public class TeacherMain {
                 break;
             }
         }
+    }
+
+    public static Article findById(int id) {
+
+        Article target = null;
+
+        for(int i = 0 ; i < articles.size(); i++){
+            Article article = articles.get(i);
+            if(id == article.getId()){
+                target = article;
+            }
+        }
+
+        return target;
+
     }
 }
