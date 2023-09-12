@@ -23,7 +23,6 @@ public class TeacherMain {
                 //contents.add(sc.nextLine());
 
                 Article article = new Article(title,content);
-
                 articles.add(article);
 
                 System.out.println("게시물이 등록되었습니다.");
@@ -65,11 +64,10 @@ public class TeacherMain {
                 }
 
                 Article article = articles.get(target-1);
-
                 System.out.println("===================");
                 System.out.printf("번호 : %d\n", target);
                 System.out.printf("제목 : %s\n",article.getTitle());
-                System.out.printf("내용 : %s\n",article.getContent());
+                System.out.printf("내용 : %s\n", article.getContent());
                 System.out.println("===================");
 
             } else if (command.equals("exit")) {

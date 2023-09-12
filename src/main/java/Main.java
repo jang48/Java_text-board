@@ -1,4 +1,6 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,8 +24,11 @@ public class Main {
                 String content = sc.nextLine();
                 //contents.add(sc.nextLine());
 
-                Article article = new Article(title,content);
+                Date now = new Date();
+                SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+                String formatedNow = date.format(now);
 
+                Article article = new Article(title,content,formatedNow);
                 articles.add(article);
 
                 System.out.println("게시물이 등록되었습니다.");
@@ -70,6 +75,7 @@ public class Main {
                 System.out.printf("번호 : %d\n", target);
                 System.out.printf("제목 : %s\n",article.getTitle());
                 System.out.printf("내용 : %s\n",article.getContent());
+                System.out.printf("등록날짜 : %s\n",article.getDate());
                 System.out.println("===================");
 
             } else if (command.equals("exit")) {
