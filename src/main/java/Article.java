@@ -6,6 +6,9 @@ public class Article {
     // 현재 날짜
     private String date;
 
+    // 조회수
+    private int click = 1;
+
     public  Article(String title, String content){
         this.title = title;
         this.content = content;
@@ -15,6 +18,13 @@ public class Article {
         this.title = title;
         this.content = content;
         this.date = date;
+    }
+
+    public  Article(String title, String content, String date, int click){
+        this.title = title;
+        this.content = content;
+        this.date = date;
+        this.click = click;
     }
 
     public void setTitle(String title){
@@ -37,5 +47,7 @@ public class Article {
         return date;
     }
 
-
+    public int getClick() {
+        return click++;
+    }
 }

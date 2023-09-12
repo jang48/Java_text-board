@@ -14,6 +14,9 @@ public class Main {
         while (true) {
             System.out.print("명령어 : ");
             String command = sc.nextLine().trim();
+            Date now = new Date();
+            SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            String formatedNow = date.format(now);
 
             if (command.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요 : ");
@@ -24,9 +27,6 @@ public class Main {
                 String content = sc.nextLine();
                 //contents.add(sc.nextLine());
 
-                Date now = new Date();
-                SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
-                String formatedNow = date.format(now);
 
                 Article article = new Article(title,content,formatedNow);
                 articles.add(article);
@@ -36,22 +36,25 @@ public class Main {
             } else if (command.equals("list")) {
                 System.out.println("===================");
 
+
                 if(articles.size() == 0)
                 {
                     String title;
                     String content;
                     title = "안녕하세요 반갑습니다. 자바 공부중이에요.";
-                    content = "";
+                    content = "자바 너무 재밌어요!!";
 
-                    Article article1 = new Article(title,content);
-                    articles.add(article1);
+                    Article article = new Article(title,content,formatedNow);
+                    articles.add(article);
 
                     title = "자바 질문좀 할게요~";
-                    Article article2 = new Article(title,content);
+                    content = "자바 너무 재밌어요!!";
+                    Article article2 = new Article(title,content,formatedNow);
                     articles.add(article2);
 
                     title = "정처기 따야되나요?";
-                    Article article3 = new Article(title,content);
+                    content = "자바 너무 재밌어요!!";
+                    Article article3 = new Article(title,content,formatedNow);
                     articles.add(article3);
                 }
 
@@ -89,12 +92,12 @@ public class Main {
                 }
 
                 Article article = articles.get(target-1);
-
                 System.out.println("===================");
                 System.out.printf("번호 : %d\n", target);
                 System.out.printf("제목 : %s\n",article.getTitle());
                 System.out.printf("내용 : %s\n",article.getContent());
                 System.out.printf("등록날짜 : %s\n",article.getDate());
+                System.out.printf("조회수 : %s\n",article.getClick());
                 System.out.println("===================");
 
             } else if (command.equals("search")) {
@@ -103,30 +106,31 @@ public class Main {
                 boolean check = false;
 
                 System.out.println("===================");
-                for(int i = 0; i < articles.size(); i++){
+                for (int i = 0; i < articles.size(); i++) {
                     Article article = articles.get(i);
-                    if(article.getTitle().contains(keyword)) {
+                    if (article.getTitle().contains(keyword)) {
                         System.out.printf("번호 : %d\n", i + 1);
                         System.out.printf("제목 : %s\n", article.getTitle());
                         System.out.println("===================");
                         check = true;
                     }
                 }
-                if(!check){
+                if (!check) {
                     System.out.println("검색 결과가 없습니다.");
+                    System.out.println("===================");
                 }
             } else if (command.equals("delete")) {
-                System.out.print("삭제할 게시물 번호 : ");
-                int target = sc.nextInt();
+                    System.out.print("삭제할 게시물 번호 : ");
+                    int target = sc.nextInt();
 
-                sc.nextLine();
-                if(0 <= target && target <= articles.size()) {
-                    articles.remove(target - 1);
-                    System.out.printf("%d번 게시물이 삭제되었습니다.\n",target);
-                }
-                else{
-                    System.out.printf("없는 게시물 번호입니다.\n");
-                }
+                    sc.nextLine();
+                    if(0 <= target && target <= articles.size()) {
+                        articles.remove(target - 1);
+                        System.out.printf("%d번 게시물이 삭제되었습니다.\n",target);
+                    }
+                    else{
+                        System.out.printf("없는 게시물 번호입니다.\n");
+                    }
             } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
