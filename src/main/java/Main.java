@@ -1,15 +1,15 @@
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
-//        ArrayList<String> titles = new ArrayList<>();
-//        ArrayList<String> contents = new ArrayList<>();
         ArrayList<Article> articles = new ArrayList<>();
+        ArrayList<Plus> options = new ArrayList<>();
+
+        int lastId =1;
 
         while (true) {
             System.out.print("명령어 : ");
@@ -21,12 +21,10 @@ public class Main {
             if (command.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요 : ");
                 String title = sc.nextLine();
-                // titles.add(title);
-                // titles.add( sc.nextLine());
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String content = sc.nextLine();
-                //contents.add(sc.nextLine());
 
+                lastId++;
 
                 Article article = new Article(title,content,formatedNow);
                 articles.add(article);
@@ -35,7 +33,6 @@ public class Main {
 
             } else if (command.equals("list")) {
                 System.out.println("===================");
-
 
                 if(articles.size() == 0)
                 {
@@ -62,7 +59,6 @@ public class Main {
                     Article article = articles.get(i);
                     System.out.printf("번호 : %d\n", i + 1);
                     System.out.printf("제목 : %s\n",article.getTitle());
-                    // System.out.printf("내용 : %s\n", contents.get(i));
                     System.out.println("===================");
                 }
             } else if (command.equals("update")) {
@@ -76,13 +72,11 @@ public class Main {
                 System.out.print("새로운 내용 : ");
                 String newcontent = sc.nextLine();
 
-                Article newArticle = new Article(newtitle, newcontent);
+                Article newArticle = new Article(target, newtitle, newcontent);
                 articles.set(target-1, newArticle);
 
                 System.out.println("수정이 완료되었습니다.");
 
-//                titles.set(target-1, newtitle);
-//                contents.set(target-1, newcontent);
             } else if (command.equals("detail")) {
                 System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
                 int target = sc.nextInt();
@@ -92,13 +86,26 @@ public class Main {
                 }
 
                 Article article = articles.get(target-1);
-                System.out.println("===================");
+                System.out.printf("========%d번 게시물=========\n",target);
                 System.out.printf("번호 : %d\n", target);
                 System.out.printf("제목 : %s\n",article.getTitle());
                 System.out.printf("내용 : %s\n",article.getContent());
                 System.out.printf("등록날짜 : %s\n",article.getDate());
                 System.out.printf("조회수 : %s\n",article.getClick());
                 System.out.println("===================");
+
+                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                String function = sc.nextLine();
+
+                if(function.trim().equals("1")){
+                    System.out.print("댓글 내용 : ");
+                    String comment = sc.nextLine();
+                    Plus plus= new Plus(comment);
+                    options.set(target - 1, plus);
+
+                    System.out.println("게시물이 등록되었습니다.");
+                }
+
 
             } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요 :");

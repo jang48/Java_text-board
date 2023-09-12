@@ -1,4 +1,6 @@
 public class Article {
+    // 게시물 번호
+    private int id;
     // 제목
     private String title;
     // 내용
@@ -6,10 +8,12 @@ public class Article {
     // 현재 날짜
     private String date;
 
+
     // 조회수
     private int click = 1;
 
-    public  Article(String title, String content){
+    public  Article(int id, String title, String content){
+        this.id = id;
         this.title = title;
         this.content = content;
     }
@@ -18,13 +22,6 @@ public class Article {
         this.title = title;
         this.content = content;
         this.date = date;
-    }
-
-    public  Article(String title, String content, String date, int click){
-        this.title = title;
-        this.content = content;
-        this.date = date;
-        this.click = click;
     }
 
     public void setTitle(String title){
@@ -43,6 +40,14 @@ public class Article {
         return content;
     }
 
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getDate() {
         return date;
     }
@@ -50,4 +55,6 @@ public class Article {
     public int getClick() {
         return click++;
     }
+
+
 }
