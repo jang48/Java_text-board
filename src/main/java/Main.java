@@ -93,21 +93,30 @@ public class Main {
                 System.out.printf("등록날짜 : %s\n",article.getDate());
                 System.out.printf("조회수 : %s\n",article.getClick());
                 System.out.println("===================");
-                if(options.get(target-1) != null){
 
+                if (options.get(target-1) == null && article.getTitle() != null) {
+                    System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                    String function = sc.nextLine();
+                    if(function.trim().equals("1")){
+                        System.out.print("댓글 내용 : ");
+                        String comment = sc.nextLine();
+                        Plus plus= new Plus(comment,target-1);
+                        options.add(plus);
+
+                        System.out.println("댓글이 성공적으로 등록되었습니다.");
+                    }
                 }
 
-                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
-                String function = sc.nextLine();
 
-                if(function.trim().equals("1")){
-                    System.out.print("댓글 내용 : ");
-                    String comment = sc.nextLine();
-                    Plus plus= new Plus(comment);
-                    options.add(plus);
-
-                    System.out.println("댓글이 성공적으로 등록되었습니다.");
+                else if( options.get(target-1) != null){
+                    System.out.println("=======댓글=======");
+                    for(int i = 0; i < options.size(); i++){
+                        System.out.printf("댓글 내용 : %s\n",  options.get(target-1).getWrite());
+                        System.out.println("================");
+                    }
                 }
+
+
 
 
             } else if (command.equals("search")) {
