@@ -35,9 +35,30 @@ public class Main {
 
             } else if (command.equals("list")) {
                 System.out.println("===================");
+
+                if(articles.size() == 0)
+                {
+                String title;
+                String content;
+                title = "안녕하세요 반갑습니다. 자바 공부중이에요.";
+                content = "";
+
+                Article article1 = new Article(title,content);
+                articles.add(article1);
+
+                title = "자바 질문좀 할게요~";
+                Article article2 = new Article(title,content);
+                articles.add(article2);
+
+                title = "정처기 따야되나요?";
+                Article article3 = new Article(title,content);
+                articles.add(article3);
+
+                }
+
+
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
-
                     System.out.printf("번호 : %d\n", i + 1);
                     System.out.printf("제목 : %s\n",article.getTitle());
                     // System.out.printf("내용 : %s\n", contents.get(i));
