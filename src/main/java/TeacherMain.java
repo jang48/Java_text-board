@@ -42,7 +42,7 @@ public class TeacherMain {
                 System.out.print("수정할 게시물 번호 : ");
                 int target = sc.nextInt();
 
-                sc.nextLine();
+                sc.nextLine(); // nextInt를 사용하게되면 nextLine()를 써줘야 다음 글과 겹쳐서 안나와
 
                 System.out.print("새로운 제목 : ");
                 String newtitle = sc.nextLine();
@@ -56,6 +56,21 @@ public class TeacherMain {
 
 //                titles.set(target-1, newtitle);
 //                contents.set(target-1, newcontent);
+            } else if (command.equals("detail")) {
+                System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
+                int target = sc.nextInt();
+                sc.nextLine();
+                if(articles.size() < target-1){
+                    System.out.println("존재하지 않는 게시물 번호입니다.");
+                }
+
+                Article article = articles.get(target-1);
+
+                System.out.println("===================");
+                System.out.printf("번호 : %d\n", target);
+                System.out.printf("제목 : %s\n",article.getTitle());
+                System.out.printf("내용 : %s\n",article.getContent());
+                System.out.println("===================");
 
             } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
