@@ -38,24 +38,22 @@ public class Main {
 
                 if(articles.size() == 0)
                 {
-                String title;
-                String content;
-                title = "안녕하세요 반갑습니다. 자바 공부중이에요.";
-                content = "";
+                    String title;
+                    String content;
+                    title = "안녕하세요 반갑습니다. 자바 공부중이에요.";
+                    content = "";
 
-                Article article1 = new Article(title,content);
-                articles.add(article1);
+                    Article article1 = new Article(title,content);
+                    articles.add(article1);
 
-                title = "자바 질문좀 할게요~";
-                Article article2 = new Article(title,content);
-                articles.add(article2);
+                    title = "자바 질문좀 할게요~";
+                    Article article2 = new Article(title,content);
+                    articles.add(article2);
 
-                title = "정처기 따야되나요?";
-                Article article3 = new Article(title,content);
-                articles.add(article3);
-
+                    title = "정처기 따야되나요?";
+                    Article article3 = new Article(title,content);
+                    articles.add(article3);
                 }
-
 
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
@@ -99,6 +97,36 @@ public class Main {
                 System.out.printf("등록날짜 : %s\n",article.getDate());
                 System.out.println("===================");
 
+            } else if (command.equals("search")) {
+                System.out.print("검색 키워드를 입력해주세요 :");
+                String keyword = sc.nextLine();
+                boolean check = false;
+
+                System.out.println("===================");
+                for(int i = 0; i < articles.size(); i++){
+                    Article article = articles.get(i);
+                    if(article.getTitle().contains(keyword)) {
+                        System.out.printf("번호 : %d\n", i + 1);
+                        System.out.printf("제목 : %s\n", article.getTitle());
+                        System.out.println("===================");
+                        check = true;
+                    }
+                }
+                if(!check){
+                    System.out.println("검색 결과가 없습니다.");
+                }
+            } else if (command.equals("delete")) {
+                System.out.print("삭제할 게시물 번호 : ");
+                int target = sc.nextInt();
+
+                sc.nextLine();
+                if(0 <= target && target <= articles.size()) {
+                    articles.remove(target - 1);
+                    System.out.printf("%d번 게시물이 삭제되었습니다.\n",target);
+                }
+                else{
+                    System.out.printf("없는 게시물 번호입니다.\n");
+                }
             } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;

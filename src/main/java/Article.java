@@ -36,4 +36,6 @@ public class Article {
     public String getDate() {
         return date;
     }
+
+
 }

@@ -43,6 +43,7 @@ public class TeacherMain {
 
                 sc.nextLine(); // nextInt를 사용하게되면 nextLine()를 써줘야 다음 글과 겹쳐서 안나와
 
+                if(0 <= target && target <= articles.size()) {
                 System.out.print("새로운 제목 : ");
                 String newtitle = sc.nextLine();
                 System.out.print("새로운 내용 : ");
@@ -52,6 +53,10 @@ public class TeacherMain {
                 articles.set(target-1, newArticle);
 
                 System.out.println("수정이 완료되었습니다.");
+                }
+                else {
+                    System.out.println("없는 게시물입니다.");
+                }
 
 //                titles.set(target-1, newtitle);
 //                contents.set(target-1, newcontent);
@@ -69,7 +74,20 @@ public class TeacherMain {
                 System.out.printf("제목 : %s\n",article.getTitle());
                 System.out.printf("내용 : %s\n", article.getContent());
                 System.out.println("===================");
+            } else if (command.equals("delete")) {
+                System.out.print("삭제할 게시물 번호 : ");
+                int target = sc.nextInt();
 
+                sc.nextLine();
+                // index -> 0 부터 시작하기 때문에 0보다 작으면 안됨
+                // 내가 가지고 있는 데이터의 개수 -1보다 크면 안됨
+                if(0 <= target && target <= articles.size()) {
+                    articles.remove(target - 1);
+                    System.out.printf("%d번 게시물이 삭제되었습니다.\n",target);
+                }
+                else{
+                    System.out.printf("없는 게시물 번호입니다.\n");
+                }
             } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;
