@@ -43,17 +43,18 @@ public class TeacherMain {
                 System.out.println("게시물이 등록되었습니다.");
 
             } else if (command.equals("list")) {
-                System.out.println("===================");
-
-                for (int i = 0; i < articles.size(); i++) {
-                    Article article = articles.get(i);
-
-//                    System.out.printf("번호 : %d\n", i + 1);
-                    System.out.printf("번호 : %d\n", article.getId());
-                    System.out.printf("제목 : %s\n", article.getTitle());
-                    // System.out.printf("내용 : %s\n", contents.get(i));
-                    System.out.println("===================");
-                }
+//                System.out.println("===================");
+//
+//                for (int i = 0; i < articles.size(); i++) {
+//                    Article article = articles.get(i);
+//
+////                  System.out.printf("번호 : %d\n", i + 1);
+//                    System.out.printf("번호 : %d\n", article.getId());
+//                    System.out.printf("제목 : %s\n", article.getTitle());
+//                    // System.out.printf("내용 : %s\n", contents.get(i));
+//                    System.out.println("===================");
+//                }
+                printArticles(articles);
             } else if (command.equals("update")) {
                 System.out.print("수정할 게시물 번호 : ");
                 int targetid = sc.nextInt();
@@ -135,18 +136,18 @@ public class TeacherMain {
                 System.out.print("검색 키워드를 입력해주세요 : ");
                 String keyword = sc.nextLine();
 
-                System.out.println("====================");
+                ArrayList<Article> searchedArticle = new ArrayList<>();
+
                 for(int i = 0; i < articles.size(); i ++){
                     Article article = articles.get(i);
                     String title =  article.getTitle();
 
                     if(title.contains(keyword)){
-                        System.out.printf("번호 : %d\n", article.getId());
-                        System.out.printf("제목 : %s\n", article.getTitle());
-                        System.out.println("====================");
+                        searchedArticle.add(article);
                     }
-
                 }
+
+                printArticles(searchedArticle);
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
@@ -219,5 +220,18 @@ public class TeacherMain {
         return formatedNow;
     }
 
-    public static void
+    // list랑 search
+    public static void  printArticles(ArrayList<Article> list){
+
+        System.out.println("===================");
+
+        for (int i = 0; i < list.size(); i++) {
+            Article article = list.get(i);
+
+            System.out.printf("번호 : %d\n", article.getId());
+            System.out.printf("제목 : %s\n", article.getTitle());
+            // System.out.printf("내용 : %s\n", contents.get(i));
+            System.out.println("===================");
+        }
+    }
 }

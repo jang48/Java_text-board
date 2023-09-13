@@ -1,6 +1,7 @@
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Scanner;
 
 public class Main {
@@ -77,46 +78,40 @@ public class Main {
 
             } else if (command.equals("detail")) {
                 System.out.print("상세보기 할 게시물 번호를 입력해주세요 : ");
-                int target = sc.nextInt();
+                int targetId = sc.nextInt();
+
                 sc.nextLine();
-                if(articles.size() < target-1){
-                    System.out.println("존재하지 않는 게시물 번호입니다.");
-                }
 
-                Article article = articles.get(target-1);
-                System.out.printf("========%d번 게시물=========\n",target);
-                System.out.printf("번호 : %d\n", target);
-                System.out.printf("제목 : %s\n",article.getTitle());
-                System.out.printf("내용 : %s\n",article.getContent());
-                System.out.printf("등록날짜 : %s\n",article.getDate());
-                System.out.printf("조회수 : %s\n",article.getClick());
-                System.out.println("===================");
+                Article article = articles.get(targetId-1);
+                System.out.println("========" + targetId + "번 게시물========");
+                System.out.println("번호 : " + targetId);
+                System.out.println("제목 : " + article.getTitle());
+                System.out.println("내용 : " + article.getContent());
+                System.out.println("등록날짜 : " + article.getDate());
+                System.out.println("조회수 : " + article.getClick());
+                System.out.println("========================");
 
-                if(!plus.isEmpty() ){
-                    if( plus.get(target-1).equals(articles.get(target-1))){
-                    System.out.println("=======댓글========");
-                    for (int i = 0; i < plus.size(); i++) {
-                        Plus comment = plus.get(target-1);
-                        if (comment != null) {
-                            System.out.printf("댓글 내용 : %s\n", comment.getWrite());
-                            System.out.printf("댓글 작성일 : %s\n", comment.getDate());
-                            System.out.println("===================");
-                        }
-                    }
-                    }
+                for(int i = 0; i < plus.size(); i++){
+                    Plus plus1 = plus.get(i);
+                    if(plus1.getId() == targetId){
+                    System.out.printf("번호 : %d\n", i + 1);
+                    System.out.printf("제목 : %s\n",article.getTitle());
+                    System.out.println("===================");}
                 }
 
                 System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
-                String function = sc.nextLine();
-                if (function.trim().equals("1")) {
+                int function = sc.nextInt();
+                sc.nextLine();
+                if(function == 1){
                     System.out.print("댓글 내용 : ");
                     String comment = sc.nextLine();
-                    Plus plus2 = new Plus(target - 1, comment, formatedNow);
-
-                    plus.add(plus2);
-
-                    System.out.println("댓글이 성공적으로 등록되었습니다.");
+                    Plus newplus = new Plus(targetId, comment, formatedNow);
+                    plus.set(targetId, newplus);
+                    System.out.print("댓글이 성공적으로 등록되었습니다\n");
                 }
+
+
+
             } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요 :");
                 String keyword = sc.nextLine();
