@@ -93,22 +93,20 @@ public class Main {
 
                 for(int i = 0; i < plus.size(); i++){
                     Plus plus1 = plus.get(i);
-                    if(plus1.getId() == targetId){
                     System.out.printf("번호 : %d\n", i + 1);
                     System.out.printf("제목 : %s\n",article.getTitle());
-                    System.out.println("===================");}
+                    System.out.println("===================");
                 }
 
                 System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
                 int function = sc.nextInt();
                 sc.nextLine();
-                if(function == 1){
-                    System.out.print("댓글 내용 : ");
-                    String comment = sc.nextLine();
-                    Plus newplus = new Plus(targetId, comment, formatedNow);
-                    plus.set(targetId, newplus);
-                    System.out.print("댓글이 성공적으로 등록되었습니다\n");
-                }
+                System.out.print("댓글 내용 : ");
+                String comment = sc.nextLine();
+                Plus newplus = new Plus(targetId, comment, formatedNow);
+                plus.add(newplus);
+                System.out.print("댓글이 성공적으로 등록되었습니다\n");
+
 
 
 
