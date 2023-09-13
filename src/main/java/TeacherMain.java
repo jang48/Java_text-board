@@ -6,21 +6,37 @@ import java.util.Scanner;
 
 public class TeacherMain {
     static ArrayList<Article> articles = new ArrayList<>();
-    static{
-            Article a1 = new Article(1, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", getCurrentDate());
-            Article a2 = new Article(2, "자바 질문좀 할게요~", "자바 너무 재밌어요!!", getCurrentDate());
-            Article a3 = new Article(3, "정처기 따야되나요?", "자바 너무 재밌어요!!", getCurrentDate());
-
-            articles.add(a1);
-            articles.add(a2);
-            articles.add(a3);
-    }
+//    static{
+//            Article a1 = new Article(1, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", getCurrentDate());
+//            Article a2 = new Article(2, "자바 질문좀 할게요~", "자바 너무 재밌어요!!", getCurrentDate());
+//            Article a3 = new Article(3, "정처기 따야되나요?", "자바 너무 재밌어요!!", getCurrentDate());
+//
+//            articles.add(a1);
+//            articles.add(a2);
+//            articles.add(a3);
+//    }
     public static void main(String[] args) {
 
+        //핵심 로직을 main 메서드에 작성하지 않는다.
+
+        BoardApp app = new BoardApp();  // BoardApp을 따로 빼서 static 메서드나 static ArrayList를 사용하지 않는다.
+                                        // 원래 ArrayList에는 static을 넣지않는데  main이 static이기 때문에 강제로 넣었다. 메서드 또한 static이 정말 필요한 경우가 아닌이상 지양하기때문에
+                                        // BoardApp Class를 새로 생성했다.
+        app.start();
+
+        /*
         Scanner sc = new Scanner(System.in);
 //        ArrayList<String> titles = new ArrayList<>();
 //        ArrayList<String> contents = new ArrayList<>();
 //        ArrayList<Article> articles = new ArrayList<>();
+
+        Article a1 = new Article(1, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", getCurrentDate());
+        Article a2 = new Article(2, "자바 질문좀 할게요~", "자바 너무 재밌어요!!", getCurrentDate());
+        Article a3 = new Article(3, "정처기 따야되나요?", "자바 너무 재밌어요!!", getCurrentDate());
+
+        articles.add(a1);
+        articles.add(a2);
+        articles.add(a3);
 
         int lastId = 1;
 
@@ -125,10 +141,16 @@ public class TeacherMain {
                 if(article == null){
                     System.out.println("존재하지 않는 게시물입니다.");
                 } else {
+                    // 1번째 방법
+                    article.setHit(article.getHit()+1);
+
+                    // 2번째 방법
+                    // article.increaseHit();
                     System.out.println("====================");
                     System.out.printf("번호 : %d\n", article.getId());
                     System.out.printf("제목 : %s\n", article.getTitle());
                     System.out.printf("내용 : %s\n", article.getContent());
+                    System.out.printf("조회수 : %s\n", article.getHit());
                     System.out.printf("등록일 : %s\n", article.getDate());
                     System.out.println("====================");
                 }
@@ -233,5 +255,6 @@ public class TeacherMain {
             // System.out.printf("내용 : %s\n", contents.get(i));
             System.out.println("===================");
         }
+     */
     }
 }

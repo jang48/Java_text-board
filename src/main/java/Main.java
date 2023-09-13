@@ -83,16 +83,17 @@ public class Main {
                 sc.nextLine();
 
                 Article article = articles.get(targetId-1);
+                article.setHit(article.getHit()+1);
+
                 System.out.println("========" + targetId + "번 게시물========");
                 System.out.println("번호 : " + targetId);
                 System.out.println("제목 : " + article.getTitle());
                 System.out.println("내용 : " + article.getContent());
                 System.out.println("등록날짜 : " + article.getDate());
-                System.out.println("조회수 : " + article.getClick());
+                System.out.println("조회수 : " + article.getHit());
                 System.out.println("========================");
 
                 if(!plus.isEmpty()){
-                    //lus plus1 = plus.get(targetId-1);
                     for (Plus plus1 : plus) {
                         if(plus1.getId() == targetId){
                             System.out.printf("댓글 내용 : %s\n", plus1.getWrite());
@@ -113,8 +114,10 @@ public class Main {
                     Plus newplus = new Plus(targetId, comment, formatedNow);
                     plus.add(newplus);
                     System.out.print("댓글이 성공적으로 등록되었습니다\n");
+                }else if(function == 5){
+                    sc.nextLine();
+                    System.out.println("상세보기 화면을 빠져나갑니다.\n");
                 }
-
 
             } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요 :");
@@ -145,8 +148,19 @@ public class Main {
                         System.out.printf("%d번 게시물이 삭제되었습니다.\n",target);
                     }
                     else{
-                        System.out.printf("없는 게시물 번호입니다.\n");
+                        System.out.print("없는 게시물 번호입니다.\n");
                     }
+            } else if (command.equals("signup")) {
+                System.out.println("==== 회원 가입을 진행합니다 ====");
+                System.out.print("아이디를 입력해주세요 :");
+                String joinid = sc.nextLine();
+                System.out.print("비밀번호를  입력해주세요 :");
+                String joinpw = sc.nextLine();
+                System.out.print("닉네임을 입력해주세요 :");
+                String joinname = sc.nextLine();
+                System.out.print("==== 회원가입이 완료되었습니다. ====");
+
+
             } else if (command.equals("exit")) {
                 System.out.println("프로그램을 종료합니다.");
                 break;

@@ -7,12 +7,17 @@ public class Article {
     private String title;
     // 내용
     private String content;
+    // 조회수
+    private int hit;
     // 현재 날짜
     private String date;
+    // 아이디
+    private int joinid;
+    // 비밀번호
+    private int joinpw;
+    // 닉네임
+    private int joinname;
 
-
-    // 조회수
-    private int click = 1;
 
     public  Article(int id, String title, String content){
         this.id = id;
@@ -25,6 +30,12 @@ public class Article {
         this.title = title;
         this.content = content;
         this.date = date;
+    }
+
+    public  Article(int joinid, int joinpw, int joinname){
+        this.joinid = joinid;
+        this.joinpw = joinpw;
+        this.joinname = joinname;
     }
 
     public void setTitle(String title){
@@ -55,8 +66,45 @@ public class Article {
         return date;
     }
 
-    public int getClick() {
-        return click++;
+    public void setDate(String date) {
+        this.date = date;
+    }
+    public int getJoinid() {
+        return joinid;
     }
 
+    public void setJoinid(int joinid) {
+        this.joinid = joinid;
+    }
+
+    public int getJoinpw() {
+        return joinpw;
+    }
+
+    public void setJoinpw(int joinpw) {
+        this.joinpw = joinpw;
+    }
+
+    public int getJoinname() {
+        return joinname;
+    }
+
+    public void setJoinname(int joinname) {
+        this.joinname = joinname;
+    }
+
+    public int getHit() {
+        return hit;
+    }
+
+    public void setHit(int hit) {
+        this.hit = hit;
+    }
+
+    /*
+    public void increaseHit(){  >> 비지니스 로직이 즉 setter이나 getter이 있는 데이터만 저장하고 표현하는 class 에서는 데이터를 처리하는 행위를 지양해야한다.
+        // 게시물 기능의 일부 -> 비지니스 로직, 서비스 로직
+        this.hit++;
+    }
+     */
 }
