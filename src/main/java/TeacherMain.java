@@ -47,27 +47,43 @@ public class TeacherMain {
                 System.out.print("수정할 게시물 번호 : ");
                 int targetid = sc.nextInt();
 
-                sc.nextLine(); // nextInt를 사용하게되면 nextLine()를 써줘야 다음 글과 겹쳐서 안나와
-                boolean isExist = false;
-                for(int i = 0; i < articles.size(); i++){
-                    Article article = articles.get(i);
+                Article article = findById((targetid));
 
-                    if(targetid == article.getId()) {
-                        System.out.print("새로운 제목 : ");
-                        String newtitle = sc.nextLine();
-                        System.out.print("새로운 내용 : ");
-                        String newcontent = sc.nextLine();
+                if(article == null){
+                    System.out.println("없는 게시물입니다.");
+                } else {
+                    System.out.print("새로운 제목 : ");
+                    String newtitle = sc.nextLine();
+                    System.out.print("새로운 내용 : ");
+                    String newcontent = sc.nextLine();
 
-                        Article newArticle = new Article(targetid,newtitle, newcontent);
-                        articles.set(i, newArticle);
+                    article.setTitle(newtitle);
+                    article.setContent(newcontent);
 
-                        System.out.println("수정이 완료되었습니다.");
-                        isExist = true;
-                    }
-
+                    System.out.println("수정이 완료되었습니다.");
                 }
-                if(!isExist){
-                System.out.println("없는 게시물입니다.");}
+//
+//                sc.nextLine(); // nextInt를 사용하게되면 nextLine()를 써줘야 다음 글과 겹쳐서 안나와
+//                boolean isExist = false;
+//                for(int i = 0; i < articles.size(); i++){
+//                    Article article = articles.get(i);
+//
+//                    if(targetid == article.getId()) {
+//                        System.out.print("새로운 제목 : ");
+//                        String newtitle = sc.nextLine();
+//                        System.out.print("새로운 내용 : ");
+//                        String newcontent = sc.nextLine();
+//
+//                        Article newArticle = new Article(targetid,newtitle, newcontent);
+//                        articles.set(i, newArticle);
+//
+//                        System.out.println("수정이 완료되었습니다.");
+//                        isExist = true;
+//                    }
+//
+//                }
+//                if(!isExist){
+//                System.out.println("없는 게시물입니다.");}
 
 //                if(0 <= target && target <= articles.size()) {
 //                System.out.print("새로운 제목 : ");
@@ -110,19 +126,30 @@ public class TeacherMain {
 
                 sc.nextLine();
 
-                boolean isExist = false;
-                for(int i = 0; i < articles.size(); i++){
-                    Article article = articles.get(i);
+                Article article = findById((targetid));
 
-                    if(targetid == article.getId()) {
-                        articles.remove(i);
-                        System.out.printf("%d번 게시물이 삭제되었습니다.\n",targetid);
-                        isExist = true;
-                    }
-
+                if(article == null){
+                    System.out.println("없는 게시물입니다.");
+                } else {
+                   // articles.remove(i); //  articles.remove(1) > 위치 기반으로 삭제
+                   articles.remove(article);
+                   // articles.remove(b) > 값 기반으로 삭제
                 }
-                if(!isExist){
-                    System.out.println("없는 게시물입니다.");}
+
+
+//                boolean isExist = false;
+//                for(int i = 0; i < articles.size(); i++){
+//                    Article article = articles.get(i);
+//
+//                    if(targetid == article.getId()) {
+//                        articles.remove(i);
+//                        System.out.printf("%d번 게시물이 삭제되었습니다.\n",targetid);
+//                        isExist = true;
+//                    }
+//
+//                }
+//                if(!isExist){
+//                    System.out.println("없는 게시물입니다.");}
 
 
                 // index -> 0 부터 시작하기 때문에 0보다 작으면 안됨
