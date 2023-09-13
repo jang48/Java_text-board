@@ -7,7 +7,7 @@ public class Main {
     public static void main(String[] args) {
         Scanner sc = new Scanner(System.in);
         ArrayList<Article> articles = new ArrayList<>();
-        ArrayList<Plus> options = new ArrayList<>();
+        ArrayList<Plus> plus = new ArrayList<>();
 
         int lastId =1;
 
@@ -24,9 +24,7 @@ public class Main {
                 System.out.print("게시물 내용을 입력해주세요 : ");
                 String content = sc.nextLine();
 
-                lastId++;
-
-                Article article = new Article(title,content,formatedNow);
+                Article article = new Article(lastId,title,content,formatedNow);
                 articles.add(article);
 
                 System.out.println("게시물이 등록되었습니다.");
@@ -41,17 +39,17 @@ public class Main {
                     title = "안녕하세요 반갑습니다. 자바 공부중이에요.";
                     content = "자바 너무 재밌어요!!";
 
-                    Article article = new Article(title,content,formatedNow);
+                    Article article = new Article(lastId,title,content,formatedNow);
                     articles.add(article);
 
                     title = "자바 질문좀 할게요~";
                     content = "자바 너무 재밌어요!!";
-                    Article article2 = new Article(title,content,formatedNow);
+                    Article article2 = new Article(lastId,title,content,formatedNow);
                     articles.add(article2);
 
                     title = "정처기 따야되나요?";
                     content = "자바 너무 재밌어요!!";
-                    Article article3 = new Article(title,content,formatedNow);
+                    Article article3 = new Article(lastId,title,content,formatedNow);
                     articles.add(article3);
                 }
 
@@ -94,31 +92,31 @@ public class Main {
                 System.out.printf("조회수 : %s\n",article.getClick());
                 System.out.println("===================");
 
-                if (options.get(target-1) == null && article.getTitle() != null) {
-                    System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
-                    String function = sc.nextLine();
-                    if(function.trim().equals("1")){
-                        System.out.print("댓글 내용 : ");
-                        String comment = sc.nextLine();
-                        Plus plus= new Plus(comment,target-1);
-                        options.add(plus);
-
-                        System.out.println("댓글이 성공적으로 등록되었습니다.");
+                if(!plus.isEmpty() ){
+                    if( plus.get(target-1).equals(articles.get(target-1))){
+                    System.out.println("=======댓글========");
+                    for (int i = 0; i < plus.size(); i++) {
+                        Plus comment = plus.get(target-1);
+                        if (comment != null) {
+                            System.out.printf("댓글 내용 : %s\n", comment.getWrite());
+                            System.out.printf("댓글 작성일 : %s\n", comment.getDate());
+                            System.out.println("===================");
+                        }
+                    }
                     }
                 }
 
+                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                String function = sc.nextLine();
+                if (function.trim().equals("1")) {
+                    System.out.print("댓글 내용 : ");
+                    String comment = sc.nextLine();
+                    Plus plus2 = new Plus(target - 1, comment, formatedNow);
 
-                else if( options.get(target-1) != null){
-                    System.out.println("=======댓글=======");
-                    for(int i = 0; i < options.size(); i++){
-                        System.out.printf("댓글 내용 : %s\n",  options.get(target-1).getWrite());
-                        System.out.println("================");
-                    }
+                    plus.add(plus2);
+
+                    System.out.println("댓글이 성공적으로 등록되었습니다.");
                 }
-
-
-
-
             } else if (command.equals("search")) {
                 System.out.print("검색 키워드를 입력해주세요 :");
                 String keyword = sc.nextLine();
@@ -157,3 +155,4 @@ public class Main {
         }
     }
 }
+

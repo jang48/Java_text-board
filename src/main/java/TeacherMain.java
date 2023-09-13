@@ -1,11 +1,22 @@
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
 public class TeacherMain {
-
     static ArrayList<Article> articles = new ArrayList<>();
+    static{
+            Article a1 = new Article(1, "안녕하세요 반갑습니다. 자바 공부중이에요.", "자바 너무 재밌어요!!", getCurrentDate());
+            Article a2 = new Article(2, "자바 질문좀 할게요~", "자바 너무 재밌어요!!", getCurrentDate());
+            Article a3 = new Article(3, "정처기 따야되나요?", "자바 너무 재밌어요!!", getCurrentDate());
+
+            articles.add(a1);
+            articles.add(a2);
+            articles.add(a3);
+    }
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
 //        ArrayList<String> titles = new ArrayList<>();
 //        ArrayList<String> contents = new ArrayList<>();
@@ -26,7 +37,7 @@ public class TeacherMain {
                 String content = sc.nextLine();
                 //contents.add(sc.nextLine());
 
-                Article article = new Article(lastId,title,content);
+                Article article = new Article(lastId,title,content, getCurrentDate());
                 articles.add(article);
                 lastId++;
                 System.out.println("게시물이 등록되었습니다.");
@@ -34,12 +45,12 @@ public class TeacherMain {
             } else if (command.equals("list")) {
                 System.out.println("===================");
 
-                for(int i = 0; i < articles.size(); i++){
+                for (int i = 0; i < articles.size(); i++) {
                     Article article = articles.get(i);
 
 //                    System.out.printf("번호 : %d\n", i + 1);
                     System.out.printf("번호 : %d\n", article.getId());
-                    System.out.printf("제목 : %s\n",article.getTitle());
+                    System.out.printf("제목 : %s\n", article.getTitle());
                     // System.out.printf("내용 : %s\n", contents.get(i));
                     System.out.println("===================");
                 }
@@ -117,7 +128,24 @@ public class TeacherMain {
                     System.out.printf("번호 : %d\n", article.getId());
                     System.out.printf("제목 : %s\n", article.getTitle());
                     System.out.printf("내용 : %s\n", article.getContent());
+                    System.out.printf("등록일 : %s\n", article.getDate());
                     System.out.println("====================");
+                }
+            } else if (command.equals("search")) {
+                System.out.print("검색 키워드를 입력해주세요 : ");
+                String keyword = sc.nextLine();
+
+                System.out.println("====================");
+                for(int i = 0; i < articles.size(); i ++){
+                    Article article = articles.get(i);
+                    String title =  article.getTitle();
+
+                    if(title.contains(keyword)){
+                        System.out.printf("번호 : %d\n", article.getId());
+                        System.out.printf("제목 : %s\n", article.getTitle());
+                        System.out.println("====================");
+                    }
+
                 }
 
             } else if (command.equals("delete")) {
@@ -182,4 +210,14 @@ public class TeacherMain {
         return target;
 
     }
+
+    public static String getCurrentDate(){
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy.MM.dd HH:mm:ss");
+        String formatedNow = now.format(formatter);
+
+        return formatedNow;
+    }
+
+    public static void
 }

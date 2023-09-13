@@ -1,12 +1,15 @@
 public class Plus {
-    //댓글
-    String write;
 
     //게시물 번호
-    int id;
-    public Plus(String write, int id){
-        this.write = write;
+    private int id;
+    //댓글
+    private String write;
+    private String date;
+
+    public Plus( int id, String write, String date){
         this.id = id;
+        this.write = write;
+        this.date = date;
     }
 
     public String getWrite() {
@@ -25,6 +28,11 @@ public class Plus {
         this.id = id;
     }
 
+    public String getDate() {
+        return date;
+    }
 
-
+    public void setDate(String date) {
+        this.date = date;
+    }
 }
