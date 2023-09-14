@@ -23,6 +23,9 @@ public class Main {
             SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
             String formatedNow = date.format(now);
 
+
+            if(articles.isEmpty())
+            {
             Article a1 = new Article(1,"안녕하세요 반갑습니다. 자바 공부중이에요.","자바 너무 재밌어요!!",formatedNow);
             Article a2 = new Article(2,"자바 질문좀 할게요~","자바 너무 재밌어요!!",formatedNow);
             Article a3 = new Article(3,"정처기 따야되나요?","자바 너무 재밌어요!!",formatedNow);
@@ -30,6 +33,7 @@ public class Main {
             articles.add(a1);
             articles.add(a2);
             articles.add(a3);
+            }
 
             if (command.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요 : ");
@@ -44,8 +48,6 @@ public class Main {
 
             } else if (command.equals("list")) {
                 System.out.println("===================");
-
-
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
                     System.out.printf("번호 : %d\n", i + 1);
@@ -100,16 +102,24 @@ public class Main {
                     Plus newplus = new Plus(targetId, comment, formatedNow);
                     plus.add(newplus);
                     System.out.print("댓글이 성공적으로 등록되었습니다\n");
-
                 }else if(function == 3){
+                        sc.nextLine();
+                        System.out.print("제목 : ");
+                        String retitle = sc.nextLine();
+                        System.out.print("내용 : ");
+                        String recontent = sc.nextLine();
+                        Article article2 = new Article(targetId, retitle, recontent, formatedNow, loggedInUserId);
+                        articles.set(targetId-1, article2);
+                        articleList(article2);
+                }else if(function == 4){
+                    System.out.print("정말 게시물을 삭제하시겠습니까? (Y / N) : ");
                     sc.nextLine();
-                    System.out.print("제목 : ");
-                    String retitle = sc.nextLine();
-                    System.out.print("내용 : ");
-                    String recontent = sc.nextLine();
-                    Article article2 = new Article(targetId, retitle, recontent, formatedNow, loggedInUserId);
-                    articles.set(targetId-1, article2);
-                    articleList(article2);
+                    String answer = sc.nextLine();
+                    if(answer.equals("Y")){
+                        articles.remove(targetId - 1);
+                        System.out.printf("%s님이 %d번 게시물을 삭제했습니다.\n", loggedInUserNickname, targetId);
+
+                    }
 
                 }else if(function == 5){
                     sc.nextLine();  // nextLine이 없으면  System.out.print("명령어 : ");
@@ -193,13 +203,23 @@ public class Main {
     public static void articleList(Article article){
 
         int targetId =  article.getId();
-        System.out.println("========" + targetId + "번 게시물========");
-        System.out.println("번호 : " + targetId);
-        System.out.println("제목 : " + article.getTitle());
-        System.out.println("내용 : " + article.getContent());
-        System.out.println("등록날짜 : " + article.getDate());
-        System.out.println("작성자 : " + article.getJoinid());
-        System.out.println("=========================");
+        if(!Objects.equals(article.getJoinid(), "")){
+            System.out.println("========" + targetId + "번 게시물========");
+            System.out.println("번호 : " + targetId);
+            System.out.println("제목 : " + article.getTitle());
+            System.out.println("내용 : " + article.getContent());
+            System.out.println("등록날짜 : " + article.getDate());
+            System.out.println("작성자 : " + article.getJoinid());
+            System.out.println("=========================");
+        }else{
+            System.out.println("========" + targetId + "번 게시물========");
+            System.out.println("번호 : " + targetId);
+            System.out.println("제목 : " + article.getTitle());
+            System.out.println("내용 : " + article.getContent());
+            System.out.println("등록날짜 : " + article.getDate());
+            System.out.println("=========================");
+        }
+
     }
 }
 
