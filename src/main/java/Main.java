@@ -20,8 +20,16 @@ public class Main {
             }
             String command = sc.nextLine().trim();
             Date now = new Date();
-            SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
+            SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd");
             String formatedNow = date.format(now);
+
+            Article a1 = new Article(1,"안녕하세요 반갑습니다. 자바 공부중이에요.","자바 너무 재밌어요!!",formatedNow);
+            Article a2 = new Article(2,"자바 질문좀 할게요~","자바 너무 재밌어요!!",formatedNow);
+            Article a3 = new Article(3,"정처기 따야되나요?","자바 너무 재밌어요!!",formatedNow);
+
+            articles.add(a1);
+            articles.add(a2);
+            articles.add(a3);
 
             if (command.equals("add")) {
                 System.out.print("게시물 제목을 입력해주세요 : ");
@@ -37,26 +45,6 @@ public class Main {
             } else if (command.equals("list")) {
                 System.out.println("===================");
 
-                if(articles.size() == 0)
-                {
-                    String title;
-                    String content;
-                    title = "안녕하세요 반갑습니다. 자바 공부중이에요.";
-                    content = "자바 너무 재밌어요!!";
-
-                    Article article = new Article(lastId,title,content,formatedNow);
-                    articles.add(article);
-
-                    title = "자바 질문좀 할게요~";
-                    content = "자바 너무 재밌어요!!";
-                    Article article2 = new Article(lastId,title,content,formatedNow);
-                    articles.add(article2);
-
-                    title = "정처기 따야되나요?";
-                    content = "자바 너무 재밌어요!!";
-                    Article article3 = new Article(lastId,title,content,formatedNow);
-                    articles.add(article3);
-                }
 
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
@@ -89,13 +77,7 @@ public class Main {
                 Article article = articles.get(targetId-1);
                 article.setHit(article.getHit()+1);
 
-                System.out.println("========" + targetId + "번 게시물========");
-                System.out.println("번호 : " + targetId);
-                System.out.println("제목 : " + article.getTitle());
-                System.out.println("내용 : " + article.getContent());
-                System.out.println("등록날짜 : " + article.getDate());
-                System.out.println("조회수 : " + article.getHit());
-                System.out.println("========================");
+                articleList(article);
 
                 if(!plus.isEmpty()){
                     for (Plus plus1 : plus) {
@@ -108,7 +90,7 @@ public class Main {
 
                 }
 
-                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 추천, 3. 수정, 4. 삭제, 5. 목록으로) : ");
+                System.out.print("상세보기 기능을 선택해주세요(1. 댓글 등록, 2. 좋아요, 3. 수정, 4. 삭제, 5. 목록으로) : ");
                 int function = sc.nextInt();
 
                 if(function == 1){
@@ -118,6 +100,17 @@ public class Main {
                     Plus newplus = new Plus(targetId, comment, formatedNow);
                     plus.add(newplus);
                     System.out.print("댓글이 성공적으로 등록되었습니다\n");
+
+                }else if(function == 3){
+                    sc.nextLine();
+                    System.out.print("제목 : ");
+                    String retitle = sc.nextLine();
+                    System.out.print("내용 : ");
+                    String recontent = sc.nextLine();
+                    Article article2 = new Article(targetId, retitle, recontent, formatedNow, loggedInUserId);
+                    articles.set(targetId-1, article2);
+                    articleList(article2);
+
                 }else if(function == 5){
                     sc.nextLine();  // nextLine이 없으면  System.out.print("명령어 : ");
                                     //                    String command = sc.nextLine().trim();
@@ -178,16 +171,15 @@ public class Main {
                 boolean loggedIn  = false;
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
-                    if(article.getJoinid().equals(joinid) || article.getJoinpw().equals(joinpw)){
-                        loggedIn  = true;
+                    if(article.getJoinid().equals(joinid) || article.getJoinpw().equals(joinpw)) {
+                        loggedIn = true;
                         loggedInUserId = article.getJoinid(); // 사용자의 아이디 저장
                         loggedInUserNickname = article.getJoinname(); // 사용자의 닉네임 저장
-                        System.out.printf("%s님 환영합니다!\n",loggedInUserNickname);
-                    }else if(!Objects.equals(article.getJoinid(), joinid) || !loggedIn){
-                        System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
+                        System.out.printf("%s님 환영합니다!\n", loggedInUserNickname);
+                        break; // 로그인 성공 시 루프를 종료합니다.
                     }
                 }
-                if(articles.isEmpty()){
+                if(!loggedIn){
                     System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
                 }
 
@@ -197,6 +189,17 @@ public class Main {
                 break;
             }
         }
+    }
+    public static void articleList(Article article){
+
+        int targetId =  article.getId();
+        System.out.println("========" + targetId + "번 게시물========");
+        System.out.println("번호 : " + targetId);
+        System.out.println("제목 : " + article.getTitle());
+        System.out.println("내용 : " + article.getContent());
+        System.out.println("등록날짜 : " + article.getDate());
+        System.out.println("작성자 : " + article.getJoinid());
+        System.out.println("=========================");
     }
 }
 

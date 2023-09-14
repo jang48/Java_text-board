@@ -30,9 +30,16 @@ public class Article {
         this.date = date;
     }
 
-    public  Article(String joinid, String joinpw, String joinname){
+    public  Article(int id, String title, String content, String date, String joinid){
+        this.id = id;
+        this.title = title;
+        this.content = content;
+        this.date = date;
         this.joinid = joinid;
-        this.joinpw = joinpw;
+    }
+    public  Article(String joinid, String joinpw, String joinname){
+        this.joinid = joinid != null ? joinid : "";
+        this.joinpw = joinpw != null ? joinpw :"";
         this.joinname = joinname;
     }
 
@@ -68,7 +75,7 @@ public class Article {
         this.date = date;
     }
     public String getJoinid() {
-        return joinid;
+        return joinid != null ? joinid : "";
     }
 
     public void setJoinid(String joinid) {
@@ -76,7 +83,7 @@ public class Article {
     }
 
     public String getJoinpw() {
-        return joinpw;
+        return joinpw != null ? joinpw : "";
     }
 
     public void setJoinpw(String joinpw) {

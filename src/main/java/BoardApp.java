@@ -31,35 +31,44 @@ public class BoardApp {
 
                 Article article = new Article(lastId,title,content, getCurrentDate());
                 articles.add(article);
-                lastId++;
                 System.out.println("게시물이 등록되었습니다.");
+                lastId++;
 
             } else if (command.equals("list")) {
                 articleview.printArticles(articles);
             } else if (command.equals("update")) {
-                System.out.print("수정할 게시물 번호 : ");
-                int targetid = sc.nextInt();
+//                try{
+                    System.out.print("수정할 게시물 번호 : ");
+    //                int targetid = sc.nextInt();
+//                    int targetid = Integer.parseInt(sc.nextLine());
+                    int targetId = getParamInt(sc.nextLine(),-1);
+                    if(targetId == -1) {
+                        return;
+                    }
+                    Article article = findById((targetId));
 
-                Article article = findById((targetid));
+                    if(article == null){
+                        System.out.println("없는 게시물입니다.");
+                    } else {
+                        System.out.print("새로운 제목 : ");
+                        String newtitle = sc.nextLine();
+                        System.out.print("새로운 내용 : ");
+                        String newcontent = sc.nextLine();
 
-                if(article == null){
-                    System.out.println("없는 게시물입니다.");
-                } else {
-                    System.out.print("새로운 제목 : ");
-                    String newtitle = sc.nextLine();
-                    System.out.print("새로운 내용 : ");
-                    String newcontent = sc.nextLine();
+                        article.setTitle(newtitle);
+                        article.setContent(newcontent);
 
-                    article.setTitle(newtitle);
-                    article.setContent(newcontent);
-
-                    System.out.println("수정이 완료되었습니다.");
-                }
+                        System.out.println("수정이 완료되었습니다.");
+                    }
+//                } catch (NumberFormatException e){
+//                    System.out.println("숫자만 입력해야 합니다.");
+//                }
 
             } else if (command.equals("detail")) {
                 // 중복 -> 2번이상 > 함수를 만들어서 중복을 최소화 하자.
                 System.out.println("상세보기 할 게시물 번호를 입력해주세요.");
-                int targetId = sc.nextInt();
+//                int targetid = sc.nextInt();
+                int targetId = Integer.parseInt(sc.nextLine());
                 Article article = findById(targetId);
 
                 if(article == null){
@@ -98,11 +107,11 @@ public class BoardApp {
 
             } else if (command.equals("delete")) {
                 System.out.print("삭제할 게시물 번호 : ");
-                int targetid = sc.nextInt();
-
+//                int targetid = sc.nextInt();
+                int targetId = Integer.parseInt(sc.nextLine());
                 sc.nextLine();
 
-                Article article = findById((targetid));
+                Article article = findById((targetId));
 
                 if(article == null){
                     System.out.println("없는 게시물입니다.");
@@ -140,6 +149,15 @@ public class BoardApp {
         return formatedNow;
     }
 
+    public int getParamInt(String input, int defaultValue){
+        try{
+            int num = Integer.parseInt(input);
+            return num;
+        }catch(NumberFormatException e){
+            System.out.println("숫자만 입력가능합니다.");
+        }
+        return defaultValue;
+    }
     /*public void printArticleDetail(Article article){
         System.out.println("====================");
         System.out.printf("번호 : %d\n", article.getId());
