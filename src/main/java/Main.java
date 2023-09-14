@@ -7,10 +7,17 @@ public class Main {
         ArrayList<Article> articles = new ArrayList<>();
         ArrayList<Plus> plus = new ArrayList<>();
 
+        String loggedInUserId = null; // 로그인한 사용자의 아이디를 기억하는 변수
+        String loggedInUserNickname = null; // 로그인한 사용자의 닉네임을 기억하는 변수
+
         int lastId =1;
 
         while (true) {
-            System.out.print("명령어 : ");
+            if (loggedInUserId != null && loggedInUserNickname != null) {
+                System.out.printf("명령어를 입력해주세요[%s(%s)] : ", loggedInUserId, loggedInUserNickname);
+            } else {
+                System.out.print("명령어 : ");
+            }
             String command = sc.nextLine().trim();
             Date now = new Date();
             SimpleDateFormat date = new SimpleDateFormat("yyyy.MM.dd HH:mm:ss");
@@ -160,7 +167,6 @@ public class Main {
                 String joinname = sc.nextLine();
                 System.out.print("==== 회원가입이 완료되었습니다. ====\n");
 
-
                 Article joinArticle = new Article(joinid, joinpw, joinname);
                 articles.add(joinArticle);
             } else if (command.equals("login")) {
@@ -169,16 +175,20 @@ public class Main {
                 System.out.print("비밀번호 : ");
                 String joinpw = sc.nextLine();
 
-                boolean join = false;
+                boolean loggedIn  = false;
                 for(int i = 0; i < articles.size(); i++){
                     Article article = articles.get(i);
-                    if(article.getJoinid().equals(joinid)){
-                        if(article.getJoinpw().equals(joinpw)){
-                            join = true;
-                        }
-                    }else if(!Objects.equals(article.getJoinid(), joinid) || !join){
+                    if(article.getJoinid().equals(joinid) || article.getJoinpw().equals(joinpw)){
+                        loggedIn  = true;
+                        loggedInUserId = article.getJoinid(); // 사용자의 아이디 저장
+                        loggedInUserNickname = article.getJoinname(); // 사용자의 닉네임 저장
+                        System.out.printf("%s님 환영합니다!\n",loggedInUserNickname);
+                    }else if(!Objects.equals(article.getJoinid(), joinid) || !loggedIn){
                         System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
                     }
+                }
+                if(articles.isEmpty()){
+                    System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
                 }
 
 

@@ -19,7 +19,7 @@ public class TeacherMain {
 
         //핵심 로직을 main 메서드에 작성하지 않는다.
 
-        BoardApp app = new BoardApp();  // BoardApp을 따로 빼서 static 메서드나 static ArrayList를 사용하지 않는다.
+        BoardApp app = new BoardApp(); // BoardApp을 따로 빼서 static 메서드나 static ArrayList를 사용하지 않는다.
                                         // 원래 ArrayList에는 static을 넣지않는데  main이 static이기 때문에 강제로 넣었다. 메서드 또한 static이 정말 필요한 경우가 아닌이상 지양하기때문에
                                         // BoardApp Class를 새로 생성했다.
         app.start();
