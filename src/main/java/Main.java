@@ -1,8 +1,5 @@
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -115,7 +112,10 @@ public class Main {
                     plus.add(newplus);
                     System.out.print("댓글이 성공적으로 등록되었습니다\n");
                 }else if(function == 5){
-                    sc.nextLine();
+                    sc.nextLine();  // nextLine이 없으면  System.out.print("명령어 : ");
+                                    //                    String command = sc.nextLine().trim();
+                                    //                    이 작동될때  next가 있으면 버퍼에서 내가 작성한걸 뺀다.
+                                     //                   nextline하고 엔터치면 엔터까지 가져간다. 그래서 5를 친 경우 "명령어"가 나오고 다음 command에는 변수 command에 아무것도 없는 상태여서 다시 while문이 돌고 명령어가 나온다.
                     System.out.println("상세보기 화면을 빠져나갑니다.\n");
                 }
 
@@ -152,13 +152,34 @@ public class Main {
                     }
             } else if (command.equals("signup")) {
                 System.out.println("==== 회원 가입을 진행합니다 ====");
-                System.out.print("아이디를 입력해주세요 :");
+                System.out.print("아이디를 입력해주세요 : ");
                 String joinid = sc.nextLine();
-                System.out.print("비밀번호를  입력해주세요 :");
+                System.out.print("비밀번호를  입력해주세요 : ");
                 String joinpw = sc.nextLine();
-                System.out.print("닉네임을 입력해주세요 :");
+                System.out.print("닉네임을 입력해주세요 : ");
                 String joinname = sc.nextLine();
-                System.out.print("==== 회원가입이 완료되었습니다. ====");
+                System.out.print("==== 회원가입이 완료되었습니다. ====\n");
+
+
+                Article joinArticle = new Article(joinid, joinpw, joinname);
+                articles.add(joinArticle);
+            } else if (command.equals("login")) {
+                System.out.print("아이디 : ");
+                String joinid = sc.nextLine();
+                System.out.print("비밀번호 : ");
+                String joinpw = sc.nextLine();
+
+                boolean join = false;
+                for(int i = 0; i < articles.size(); i++){
+                    Article article = articles.get(i);
+                    if(article.getJoinid().equals(joinid)){
+                        if(article.getJoinpw().equals(joinpw)){
+                            join = true;
+                        }
+                    }else if(!Objects.equals(article.getJoinid(), joinid) || !join){
+                        System.out.println("비밀번호를 틀렸거나 잘못된 회원정보입니다.");
+                    }
+                }
 
 
             } else if (command.equals("exit")) {

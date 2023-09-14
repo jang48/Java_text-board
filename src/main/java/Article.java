@@ -1,5 +1,3 @@
-import java.util.HashMap;
-
 public class Article {
     // 게시물 번호
     private int id;
@@ -12,11 +10,11 @@ public class Article {
     // 현재 날짜
     private String date;
     // 아이디
-    private int joinid;
+    private String joinid;
     // 비밀번호
-    private int joinpw;
+    private String joinpw;
     // 닉네임
-    private int joinname;
+    private String joinname;
 
 
     public  Article(int id, String title, String content){
@@ -32,7 +30,7 @@ public class Article {
         this.date = date;
     }
 
-    public  Article(int joinid, int joinpw, int joinname){
+    public  Article(String joinid, String joinpw, String joinname){
         this.joinid = joinid;
         this.joinpw = joinpw;
         this.joinname = joinname;
@@ -69,27 +67,27 @@ public class Article {
     public void setDate(String date) {
         this.date = date;
     }
-    public int getJoinid() {
+    public String getJoinid() {
         return joinid;
     }
 
-    public void setJoinid(int joinid) {
-        this.joinid = joinid;
+    public void setJoinid(String joinid) {
+        this.joinid = String.valueOf(joinid);
     }
 
-    public int getJoinpw() {
+    public String getJoinpw() {
         return joinpw;
     }
 
-    public void setJoinpw(int joinpw) {
+    public void setJoinpw(String joinpw) {
         this.joinpw = joinpw;
     }
 
-    public int getJoinname() {
+    public String getJoinname() {
         return joinname;
     }
 
-    public void setJoinname(int joinname) {
+    public void setJoinname(String joinname) {
         this.joinname = joinname;
     }
 
